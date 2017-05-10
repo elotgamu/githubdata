@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href=" {% static "bootstrap/dist/css/bootstrap.min.css" %}">
+	<link rel="stylesheet" type="text/css" href=" {% static "bootstrap/dist/css/bootstrap-theme.min.css" %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
+	<title></title>
+</head>
+<body>
+
+
+	<h1 class="text-center">Github User Data</h1>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<form class="form-signin" id="login-form" method="POST" action="{% url 'ghdata:profile' %}">
+
+				{% csrf_token %}
+				<br>
+            	<input type="text" name="user" class="form-control" placeholder="Github User Name, e.g: DrkSephy" value="" required autofocus>
+            	<br>
+            	<button class="btn btn-lg btn-primary btn-block" type="submit">Get Data</button>
+
+
+				</form>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-lg-12">
+
+
+		<div class="table-responsive">
+
+			<table class="table table-bordered table-hover table-striped tablesorter">
+				<thead>
+					<tr>
+						<th class="header"> Username <i class="icon-sort"></i></th>
+                  		<th class="header"> Blog <i class="icon-sort"></i></th>
+                  		<th class="header"> Public Repos <i class="icon-sort"></i></th>
+                  		<th class="header"> Public Gists <i class="icon-sort"></i></th>
+                  		<th class="header"> Email <i class="icon-sort"></i></th>
+                  		<th class="header"> Followers <i class="icon-sort"></i></th>
+                  		<th class="header"> Following <i class="icon-sort"></i></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for key in data %}
+						<tr>
+							<td>{{ key.name }}</td>
+                    		<td><a href="{{ key.blog }}" target="_blank">{{ key.blog }}</a></td>
+                    		<td>{{ key.public_repos }}</td>
+                    		<td>{{ key.public_gists }}</td>
+                    		<td>{{ key.email }}</td>
+                    		<td>{{ key.followers }}</td>
+                    		<td>{{ key.following }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+
+			</table>
+
+		</div>
+
+
+	</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/static/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
