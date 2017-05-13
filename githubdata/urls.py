@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from ghdata import views
+
 urlpatterns = [
+    url(r'^$', views.profile, name='index'),
     url(r'^ghdata/', include('ghdata.urls', namespace='ghdata')),
     url(r'^admin/', admin.site.urls),
 ]

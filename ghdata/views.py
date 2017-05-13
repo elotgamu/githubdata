@@ -1,7 +1,6 @@
 import json
-
 import requests
-
+from django.contrib import messages
 from django.shortcuts import render, HttpResponse
 
 
@@ -24,7 +23,7 @@ def profile(request):
         req = requests.get('https://api.github.com/users/' + username)
         user_data = {}
         if req.status_code == 404:
-            pass
+            messages.info(request, 'Sorry, username not found')
         else:
             json_list = []
             json_list.append(json.loads(req.content))
